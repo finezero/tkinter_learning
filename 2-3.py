@@ -40,7 +40,6 @@ class Todo(tk.Tk):
                
         for task in self.tasks:
             task.pack(side=tk.TOP, fill=tk.X)
-            self.delete_button = tk.Button(self.)
             
         self.bind('<Return>', self.add_task)
         self.bind('<Configure>', self.on_frame_configure)
