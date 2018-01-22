@@ -13,6 +13,8 @@ class Todo(tk.Tk):
             self.tasks = []
         else:
             self.tasks = tasks
+
+        self.old_tasks = []
         
         self.tasks_canvas = tk.Canvas(self)
         self.tasks_frame = tk.Frame(self.tasks_canvas)
