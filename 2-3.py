@@ -38,10 +38,6 @@ class Todo(tk.Tk):
         self.text_frame.pack(side=tk.BOTTOM, fill=tk.X)
         self.task_create.focus_set()        
                
-        for task in self.tasks:
-            task.pack(side=tk.TOP, fill=tk.X)
-            self.delete_button = tk.Button(self.)
-            
         self.bind('<Return>', self.add_task)
         self.bind('<Configure>', self.on_frame_configure)
         self.bind_all('<MouseWheel>', self.mouse_scroll)
