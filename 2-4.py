@@ -25,7 +25,7 @@ class Todo(tk.Tk):
         self.tasks_canvas = tk.Canvas(self)
         
         self.tasks_frame = tk.Frame(self.tasks_canvas)
-        self.finished_tasks_frame = tk.Frame(self.tasks_frame)
+        self.finished_tasks_frame = tk.Frame(self.tasks_frame, bd=2)
         self.text_frame = tk.Frame(self)
         
         self.scrollbar = tk.Scrollbar(self.tasks_canvas, orient='vertical',
@@ -40,14 +40,16 @@ class Todo(tk.Tk):
         
         self.canvas_frame = self.tasks_canvas.create_window((0, 0), 
             window=self.tasks_frame, anchor='n')
+        self.finished_tasks_frame.pack(side=tk.BOTTOM, fill=tk.X)
         
         self.task_create.pack(side=tk.BOTTOM, fill=tk.X)
         self.text_frame.pack(side=tk.BOTTOM, fill=tk.X)
         self.task_create.focus_set()
         
-        finished_task = tk.Label(self.finished_tasks_frame, text='--- Here Are Finished Tasks ---',
-                         bg='lightgrey', fg='black', pady=10)
-        self.finished_tasks.append(finished_task)
+        finished_task = tk.Label(self.finished_tasks_frame, 
+                                 text='--- Under Are Finished Tasks ---',
+                                 bg='white', fg='black', pady=10)
+        finished_task.pack(side=tk.TOP, fill=tk.X)
         
         for task in self.tasks:
             task.pack(side=tk.TOP, fill=tk.X)
@@ -131,8 +133,16 @@ class Todo(tk.Tk):
             finished_task_query = 'INSERT INTO finished VALUES (?)'
             self.runQuery(finished_task_query, delete_task_data)
             
-            task.configure(bg='red')
-            #task.destroy()
+            finished_task_label = tk.Label(self.finished_tasks_frame,
+                                           text=task.cget('text'), pady=10)
+            finished_task_button = tk.Button(finished_task_label,
+                                             text='Finished',
+                                             state='disable',
+                                             pady=10)
+            finished_task_button.pack(side=tk.RIGHT)
+            finished_task_label.pack(side=tk.BOTTOM, fill=tk.X)
+            
+            task.destroy()
             self.recolour_tasks()
     
     def save_task(self, task):
